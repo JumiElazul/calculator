@@ -1,123 +1,34 @@
-// Setting elements of the HTML files to variables so they can be easily selected.
+// Assigning variables to all parts of the HTML that will either be clicked, or show input or output to the user.
 
-const numberKeys = document.querySelectorAll('.input-number')
-const opKeys = document.querySelectorAll('.input-operator')
-const enterKey = document.querySelector('.input-enter-key')
-const clearKey = document.querySelector('input-clear-all')
-const current = document.querySelector('.current-input')
-const output = document.querySelector('.output')
+const numberInputs = document.querySelectorAll('.input-number')
+const operatorInputs = document.querySelectorAll('.input-operator')
 
-// Initializing global variables that will need to be used in calculations.
+const backspace = document.querySelector('.input-clear')
+const clearAll = document.querySelector('.input-clear-all')
+const period = document.querySelector('.input-period')
+const inputArea = document.querySelector('.current-input')
+const outputArea = document.querySelector('.output')
 
-let num1 = null
-let num2 = null
-let operator = null
-let result = null
+// List of all legal operations.
 
-// Functions for all basic math equations.
+const operations = ['+', '-', '*', '/', '%']
 
-function addNum (num)
-{
-		current.textContent += num
-}
+// List of basic math functions the calculator will use.
 
-function add (num1, num2)
-{
+function add (num1, num2) {
 	return num1 + num2
 }
 
-function subtract (num1, num2)
-{
+function subtract (num1, num2) {
 	return num1 - num2
 }
 
-function multiply (num1, num2)
-{
+function multiply (num1, num2) {
 	return num1 * num2
 }
 
-function divide (num1, num2)
-{
+function divide (num1, num2) {
 	return num1 / num2
 }
 
-
-
-numberKeys.forEach (function (button) {
-	button.addEventListener('click', () => addNum(button.textContent))
-})
-
-opKeys.forEach (function (button) {
-	button.addEventListener('click', () => {
-		addNum(button.textContent)
-		operator = button.textContent
-		
-	})
-})
-
-enterKey.addEventListener('click', () => {
-	const split = current.textContent.split(operator)
-	num1 = parseFloat(split[0])
-	num2 = parseFloat(split[1])
-
-	if (operator == '+')
-	{
-		result = add(num1, num2)
-	}
-	else if (operator == '-')
-	{
-		result = subtract(num1, num2)
-	}
-	else if (operator == '*')
-	{
-		result = multiply(num1, num2)
-	}
-	else
-	{
-		result = divide(num1, num2)
-	}
-
-	output.textContent = ''
-	output.textContent = result
-
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Creating function and event listener to take keyboard input from the window.
-
-// function keyboardPress (e)
-// {
-// 	const validKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '/', '*', '-', '+', 'Enter']
-
-// 	if (validKeys.includes(e.key))
-// 	{
-// 		keyDown = e.key
-// 	}
-// }
-
-// window.addEventListener('keydown', keyboardPress)
+// Adding event listeners to all keys on the calculator.
