@@ -115,27 +115,29 @@ button {
 	outline: none;
 }
 
-.data-clear {
+.input-clear,
+.input-clear-all {
 	background: rgba(255, 150, 150, .5);
 }
 
-.data-clear:hover {
+.input-clear:hover,
+.input-clear-all:hover {
 	background: rgb(255, 150, 150);
 	transform: scale(1.02);
 }
 
-.data-number,
-.data-period {
+.input-number,
+.input-period {
 	background: rgba(150, 150, 255, .4);
 }
 
-.data-number:hover,
-.data-period:hover {
+.input-number:hover,
+.input-period:hover {
 	transform: scale(1.02);
 	background: rgb(150, 150, 255);
 }
 
-.enter-key {
+.input-enter-key {
 	background: rgba(150, 255, 150, .6);
 }
 
@@ -144,11 +146,11 @@ button {
 	background: rgb(150, 255, 150);
 }
 
-.data-operator {
+.input-operator {
 	background: rgba(255, 255, 120, .6);
 }
 
-.data-operator:hover {
+.input-operator:hover {
 	transform: scale(1.02);
 	background: rgb(255, 255, 120);
 }
