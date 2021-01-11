@@ -1,5 +1,158 @@
-* {
+html {
+	font-size: 100%;
+	font-size: 20px;
+	font-family: Crete Round, sans-serif;
+	box-sizing: border-box;
+	background: rgb(130, 230, 255);
+	color: black;
+}
+
+*, *::before, *::after {
+	box-sizing: inherit;
 	margin: 0;
 	padding: 0;
-	box-sizing: border-box;
+	line-height: 1.3;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 15vh;
+}
+
+h1 {
+	font-size: 50px;
+}
+
+.main-calculator-background {
+	width: 500px;
+	height: 750px;
+	background: rgb(210, 210, 210);
+	border: 2px solid black;
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+}
+
+.main-calculator-foreground {
+	width: 92%;
+	height: 92%;
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	border-radius: 3px;
+}
+
+.output-area {
+	height: 20%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	border: 2px solid black;
+	border-radius: 5px;
+	background: white;
+	font-size: 30px;
+}
+
+.current-input,
+.output {
+	height: 50%;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding-right: 20px;
+}
+
+.current-input {
+	font-size: 24px;
+}
+
+.output {
+	margin-bottom: 5px;
+	font-size: 40px;
+}
+
+.keypad-area {
+	display: grid;
+	grid-template-rows: repeat(5, 1fr);
+	grid-template-columns: repeat(4, 1fr);
+	margin-top: 5%;
+	height: 75%;
+	width: 100%;
+}
+
+.key {
+	width: 80%;
+	height: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-self: center;
+	justify-self: center;
+}
+
+.longkey {
+	grid-column: span 2;
+	width: 90%;
+}
+
+button {
+	font-family: inherit;
+	height: 100%;
+	width: 100%;
+	font-size: 35px;
+	border-radius: 5px;
+	outline: none;
+}
+
+.data-clear {
+	background: rgba(255, 150, 150, .5);
+}
+
+.data-clear:hover {
+	background: rgb(255, 150, 150);
+	transform: scale(1.02);
+}
+
+.data-number,
+.data-period {
+	background: rgba(150, 150, 255, .4);
+}
+
+.data-number:hover,
+.data-period:hover {
+	transform: scale(1.02);
+	background: rgb(150, 150, 255);
+}
+
+.enter-key {
+	background: rgba(150, 255, 150, .6);
+}
+
+.enter-key:hover {
+	transform: scale(1.02);
+	background: rgb(150, 255, 150);
+}
+
+.data-operator {
+	background: rgba(255, 255, 120, .6);
+}
+
+.data-operator:hover {
+	transform: scale(1.02);
+	background: rgb(255, 255, 120);
+}
+
+footer {
+	margin-top: 50px;
 }

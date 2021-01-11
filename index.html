@@ -3,9 +3,51 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Crete+Round&display=swap" rel="stylesheet">
+
 	<title>Calculator</title>
+	<header>
+		<h1>Simple Calculator</h1>
+	</header>
 </head>
 <body>
-	
+	<div class="main-calculator-background">
+		<div class="main-calculator-foreground">
+			<div class="output-area">
+				<div class="current-input"></div>
+				<div class="output">0</div>
+			</div>
+			
+			<div class="keypad-area">
+				
+				<div class="key"><button class="data-clear">AC</button></p></div>
+				<div class="key"><button class="data-clear">C</button></div>
+				<div class="key"><button class="data-operator">%</button></div>
+				<div class="key"><button class="data-operator">&divide;</button></div>
+				<div class="key"><button class="data-number">7</button></div>
+				<div class="key"><button class="data-number">8</button></div>
+				<div class="key"><button class="data-number">9</button></div>
+				<div class="key"><button class="data-operator">*</button></div>
+				<div class="key"><button class="data-number">4</button></div>
+				<div class="key"><button class="data-number">5</button></div>
+				<div class="key"><button class="data-number">6</button></div>
+				<div class="key"><button class="data-operator">+</button></div>
+				<div class="key"><button class="data-number">1</button></div>
+				<div class="key"><button class="data-number">2</button></div>
+				<div class="key"><button class="data-number">3</button></div>
+				<div class="key"><button class="data-operator">-</button></div>
+				<div class="key"><button class="data-number">0</button></div>
+				<div class="key"><button class="data-period">.</button></div>
+				<div class="key longkey"><button class="enter-key">=</button></div>
+
+			</div>
+		</div>
+	</div>
 </body>
+<footer>
+	<script src="script.js"></script>
+	<p>Made by Greg Coomber for The Odin Project</p>
+</footer>
 </html>
