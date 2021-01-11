@@ -14,8 +14,11 @@ const outputArea = document.querySelector('.output')
 // List of all legal operations.
 
 const operations = ['+', '-', '*', '/', '%']
+let operator = null
+let num1 = null
+let num2 = null
 
-// List of basic math functions the calculator will use.
+// Functions for all the math the calculator will use.
 
 function add (num1, num2) {
 	return num1 + num2
@@ -33,14 +36,35 @@ function divide (num1, num2) {
 	return num1 / num2
 }
 
-// Adding event listeners to all keys on the calculator.
+// Functions for changing the appearance of numbers, and displaying output to the user.
+
+function appendNumber (append)
+{
+	inputArea.textContent += append
+}
+
+function appendOperator (append)
+{
+	if (operations.includes(inputArea.textContent[inputArea.textContent.length - 1]))
+	{
+		operator = append
+		inputArea.textContent = inputArea.textContent.slice(0, inputArea.textContent.length - 1) + append
+	}
+	else
+	{
+		operator = append
+		inputArea.textContent += append
+	}
+}
+
+// Event listeners for all keys on the calculator.
 
 numberInputs.forEach (function (button) {
-	button.addEventListener('click', //)
+	button.addEventListener('click', () => appendNumber(button.textContent))
 })
 
 operatorInputs.forEach (function (button) {
-	button.addEventListener('click', //)
+	button.addEventListener('click', () => appendOperator(button.textContent))
 })
 
 period.addEventListener('click', () =>
