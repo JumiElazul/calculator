@@ -112,22 +112,38 @@ function appendNumber (number)
 
 function appendOperator (operator)
 {
-	// Checking to see if the last character is an operator.
 
-	if (!legalOperators.includes(workingOperation[workingOperation.length - 1]))
+	// If the operator has not been changed from null, operate function does not need to be run.
+
+	if (currentOperator === null)
 	{
+		// Checking to see if the last character is an operator.
+
+		if (!legalOperators.includes(workingOperation[workingOperation.length - 1]))
+		{
+			currentOperator = operator
+			workingOperation += operator
+			outputArea.textContent = workingOperation
+		}
+
+		else
+		{
+			currentOperator = operator
+			workingOperation = workingOperation.slice(0, workingOperation.length - 1) + operator
+			outputArea.textContent = workingOperation
+		}
+	}
+
+	// If the operator has been set, we need to run operate when user clicks another operate.
+	else
+	{
+		operate(workingOperation, currentOperator)
 		currentOperator = operator
 		workingOperation += operator
 		outputArea.textContent = workingOperation
 	}
-
-	else
-	{
-		currentOperator = operator
-		workingOperation = workingOperation.slice(0, workingOperation.length - 1) + operator
-		outputArea.textContent = workingOperation
-	}
 }
+// }
 
 // Event listeners for all keys on the calculator.
 
