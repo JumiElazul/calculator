@@ -10,6 +10,54 @@ const enterKey = document.querySelector('.input-enter-key')
 
 const outputArea = document.querySelector('.output-text')
 
+// Functions for handling keyboard input
+
+function keyboardInput (e)
+{
+	if (validKeys.includes(e.key))
+	{
+		keyboardEventHandler(e.key)
+	}
+}
+
+
+function keyboardEventHandler (key)
+{
+	if (!isNaN(key))
+	{
+		appendNumber(key)
+	}
+	else
+	{
+		switch (key)
+		{
+			case '+':
+				appendOperator('+')
+				break
+			case '-':
+				appendOperator('-')
+				break
+			case '*':
+				appendOperator('*')
+				break
+			case '/':
+				appendOperator('/')
+				break
+			case '%':
+				appendOperator('%')
+				break
+			case '.':
+				appendPeriod(workingOperation)
+				break
+			case 'Escape':
+				clearAll()
+				break
+			case 'Enter':
+				operate(workingOperation, currentOperator)
+				break
+		}
+	}
+}
 
 // List of all legal operations, and intializing variables to use.
 
@@ -21,7 +69,9 @@ let currentOperator = null
 
 let periodUsed = false
 
-// Function to clear the calculator to its default state, backspace the input line, and append a period.
+let validKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', '+', '/', '-', '*', '%', 'Enter', 'Escape']
+
+// Functions to clear the calculator to its default state, backspace the input line, or append a period.
 
 function clearAll ()
 {
@@ -39,7 +89,7 @@ function backspace (calculation)
 		{
 			return
 		}
-		
+
 		else
 		{
 			calculation = calculation.slice(0, calculation.length - 1)
@@ -102,7 +152,7 @@ function mod (num1, num2) {
 function operate (operation, operator)
 {
 
-	// Don't operate unless there is a current operator set.  At the end, reset the operator is null again.
+	// Don't operate unless there is a current operator set.  At the end, reset the operator to null again.
 
 	if (currentOperator === null)
 	{
@@ -229,3 +279,5 @@ backspaceKey.addEventListener('click', () => backspace(workingOperation))
 clearAllKey.addEventListener('click', clearAll)
 
 enterKey.addEventListener('click', () => operate(workingOperation, currentOperator))
+
+window.addEventListener('keydown', keyboardInput)

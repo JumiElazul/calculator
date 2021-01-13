@@ -143,6 +143,11 @@ button {
 	background: rgb(255, 255, 120);
 }
 
+.instructions {
+	margin-top: 10px;
+	font-size: 0.9em;
+}
+
 footer {
-	margin-top: 50px;
+	margin-top: 100px;
 }
