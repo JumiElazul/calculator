@@ -92,8 +92,19 @@ function operate (operation, operator)
 
 function appendNumber (number)
 {
+
+	// Statement to disallow 0 being the first number to append, both before and after an operator.
+
+	if ((workingOperation.length == 0 && number == 0) || 
+	   (workingOperation.length > 0 && number == 0 && legalOperators.includes(workingOperation[workingOperation.length - 1])))
+	{
+		return;
+	}
+	else
+	{
 		workingOperation += number
 		outputArea.textContent = workingOperation
+	}
 }
 
 function appendOperator (operator)
