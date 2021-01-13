@@ -52,6 +52,9 @@ function mod (num1, num2) {
 
 function operate (operation, operator)
 {
+
+	// Don't operate unless there is a current operator set.  At the end, reset the operator is null again.
+
 	if (currentOperator === null)
 	{
 		return;
