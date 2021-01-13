@@ -66,23 +66,30 @@ function operate (operation, operator)
 		let num1 = parseFloat(parts[0])
 		let num2 = parseFloat(parts[1])
 
-		switch (operator)
+		if (isNaN(num1) || isNaN(num2))
 		{
-			case '+':
-				result = add(num1, num2)
-				break
-			case '-':
-				result = subtract(num1, num2)
-				break
-			case '*':
-				result = multiply(num1, num2)
-				break
-			case '/':
-				result = divide(num1, num2)
-				break
-			case '%':
-				result = mod(num1, num2)
-				break
+			return
+		}
+		else
+		{
+			switch (operator)
+			{
+				case '+':
+					result = add(num1, num2)
+					break
+				case '-':
+					result = subtract(num1, num2)
+					break
+				case '*':
+					result = multiply(num1, num2)
+					break
+				case '/':
+					result = divide(num1, num2)
+					break
+				case '%':
+					result = mod(num1, num2)
+					break
+			}
 		}
 
 		workingOperation = result.toString()
@@ -137,13 +144,21 @@ function appendOperator (operator)
 	// If the operator has been set, we need to run operate when user clicks another operate.
 	else
 	{
-		operate(workingOperation, currentOperator)
-		currentOperator = operator
-		workingOperation += operator
-		outputArea.textContent = workingOperation
+		if (legalOperators.includes(workingOperation[workingOperation.length - 1]))
+		{
+			currentOperator = operator
+			workingOperation = workingOperation.slice(0, workingOperation.length - 1) + operator
+			outputArea.textContent = workingOperation
+		}
+		else
+		{
+			operate(workingOperation, currentOperator)
+			currentOperator = operator
+			workingOperation += operator
+			outputArea.textContent = workingOperation
+		}
 	}
 }
-// }
 
 // Event listeners for all keys on the calculator.
 
