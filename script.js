@@ -3,20 +3,30 @@
 const numberInputs = document.querySelectorAll('.input-number')
 const operatorInputs = document.querySelectorAll('.input-operator')
 
-const period = document.querySelector('.input-period')
-const backspace = document.querySelector('.input-clear')
-const clearAll = document.querySelector('.input-clear-all')
+const periodKey = document.querySelector('.input-period')
+const backspaceKey = document.querySelector('.input-clear')
+const clearAllKey = document.querySelector('.input-clear-all')
 const enterKey = document.querySelector('.input-enter-key')
-const inputArea = document.querySelector('.current-input')
-const outputArea = document.querySelector('.output')
+
+const outputArea = document.querySelector('.output-text')
 
 
-// List of all legal operations.
+// List of all legal operations, and intializing variables to use.
 
-const operations = ['+', '-', '*', '/', '%']
-let operator = null
-let num1 = null
-let num2 = null
+const legalOperators = ['+', '-', '*', '/', '%']
+
+let workingOperation = ''
+
+let currentOperator = null
+
+// Function to clear the calculator to its default state, backspace the input line, and append a period.
+
+function clearAll ()
+{
+	outputArea.textContent = 0
+	workingOperation = ''
+	currentOperator = null
+}
 
 // Functions for all the math the calculator will use.
 
@@ -36,24 +46,72 @@ function divide (num1, num2) {
 	return num1 / num2
 }
 
-// Functions for changing the appearance of numbers, and displaying output to the user.
-
-function appendNumber (append)
-{
-	inputArea.textContent += append
+function mod (num1, num2) {
+	return (num1 % num2 + num2) % num2
 }
 
-function appendOperator (append)
+function operate (operation, operator)
 {
-	if (operations.includes(inputArea.textContent[inputArea.textContent.length - 1]))
+	if (currentOperator === null)
 	{
-		operator = append
-		inputArea.textContent = inputArea.textContent.slice(0, inputArea.textContent.length - 1) + append
+		return;
 	}
 	else
 	{
-		operator = append
-		inputArea.textContent += append
+		let result = 0
+		let parts = operation.split(operator)
+		let num1 = parseFloat(parts[0])
+		let num2 = parseFloat(parts[1])
+
+		switch (operator)
+		{
+			case '+':
+				result = add(num1, num2)
+				break
+			case '-':
+				result = subtract(num1, num2)
+				break
+			case '*':
+				result = multiply(num1, num2)
+				break
+			case '/':
+				result = divide(num1, num2)
+				break
+			case '%':
+				result = mod(num1, num2)
+				break
+		}
+
+		workingOperation = result.toString()
+		outputArea.textContent = workingOperation
+		currentOperator = null
+	}
+}
+
+// Functions for changing the appearance of numbers, and displaying output to the user.
+
+function appendNumber (number)
+{
+		workingOperation += number
+		outputArea.textContent = workingOperation
+}
+
+function appendOperator (operator)
+{
+	// Checking to see if the last character is an operator.
+
+	if (!legalOperators.includes(workingOperation[workingOperation.length - 1]))
+	{
+		currentOperator = operator
+		workingOperation += operator
+		outputArea.textContent = workingOperation
+	}
+
+	else
+	{
+		currentOperator = operator
+		workingOperation = workingOperation.slice(0, workingOperation.length - 1) + operator
+		outputArea.textContent = workingOperation
 	}
 }
 
@@ -67,22 +125,14 @@ operatorInputs.forEach (function (button) {
 	button.addEventListener('click', () => appendOperator(button.textContent))
 })
 
-period.addEventListener('click', () =>
-{
-	console.log('period')
+periodKey.addEventListener('click', () => {
+	console.log('Period')
 })
 
-backspace.addEventListener('click', () =>
-{
-	console.log('backspace')
+backspaceKey.addEventListener('click', () => {
+	console.log(workingOperation)
 })
 
-clearAll.addEventListener('click', () =>
-{
-	console.log('clear all')
-})
+clearAllKey.addEventListener('click', clearAll)
 
-enterKey.addEventListener('click', () => 
-{
-	console.log('enterkey')
-})
+enterKey.addEventListener('click', () => operate(workingOperation, currentOperator))

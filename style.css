@@ -48,45 +48,33 @@ h1 {
 	height: 92%;
 	display: flex;
 	flex-direction: column;
+	flex-wrap: wrap;
 	align-self: center;
 	border-radius: 3px;
 }
 
-.output-area {
-	height: 20%;
+.output {
+	height: 15%;
 	width: 100%;
 	display: flex;
-	flex-direction: column;
+	justify-content: flex-end;
 	border: 2px solid black;
 	border-radius: 5px;
 	background: white;
 	font-size: 30px;
 }
 
-.current-input,
-.output {
-	height: 50%;
-	width: 100%;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	padding-right: 20px;
-}
-
-.current-input {
-	font-size: 24px;
-}
-
-.output {
-	margin-bottom: 5px;
-	font-size: 40px;
+.output-text {
+	font-size: 38px;
+	margin-right: 10px;
+	align-self: center;
 }
 
 .keypad-area {
 	display: grid;
 	grid-template-rows: repeat(5, 1fr);
 	grid-template-columns: repeat(4, 1fr);
-	margin-top: 5%;
+	margin-top: 10%;
 	height: 75%;
 	width: 100%;
 }
@@ -141,7 +129,7 @@ button {
 	background: rgba(150, 255, 150, .6);
 }
 
-.enter-key:hover {
+.input-enter-key:hover {
 	transform: scale(1.02);
 	background: rgb(150, 255, 150);
 }
