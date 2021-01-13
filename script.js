@@ -30,6 +30,53 @@ function clearAll ()
 	currentOperator = null
 }
 
+
+function backspace (calculation)
+{
+	if (calculation.length > 0)
+	{
+		if (legalOperators.includes(calculation[calculation.length - 1]))
+		{
+			return
+		}
+		
+		else
+		{
+			calculation = calculation.slice(0, calculation.length - 1)
+			workingOperation = calculation
+			outputArea.textContent = workingOperation
+		}
+
+	}
+	else
+	{
+		return
+	}
+}
+
+function appendPeriod (calculation)
+{
+	// If the last character in workingOperation is a period, break the function.
+	if (calculation.length > 0 && calculation[calculation.length - 1].includes('.'))
+	{
+		return
+	}
+	else
+	{
+		if (periodUsed == false)
+		{
+			workingOperation += '.'
+			outputArea.textContent = workingOperation
+			periodUsed = true
+		}
+		else
+		{
+			return
+		}
+
+	}
+}
+
 // Functions for all the math the calculator will use.
 
 function add (num1, num2) {
@@ -165,30 +212,6 @@ function appendOperator (operator)
 	}
 }
 
-function appendPeriod (calculation)
-{
-	// If the last character in workingOperation is a period, break the function.
-	if (calculation.length > 0 && calculation[calculation.length - 1].includes('.'))
-	{
-		return
-	}
-	else
-	{
-		if (periodUsed == false)
-		{
-			workingOperation += '.'
-			outputArea.textContent = workingOperation
-			periodUsed = true
-		}
-		else
-		{
-			return
-		}
-
-	}
-}
-
-
 // Event listeners for all keys on the calculator.
 
 numberInputs.forEach (function (button) {
@@ -201,9 +224,7 @@ operatorInputs.forEach (function (button) {
 
 periodKey.addEventListener('click', () => appendPeriod(workingOperation))
 
-backspaceKey.addEventListener('click', () => {
-	console.log(workingOperation)
-})
+backspaceKey.addEventListener('click', () => backspace(workingOperation))
 
 clearAllKey.addEventListener('click', clearAll)
 
