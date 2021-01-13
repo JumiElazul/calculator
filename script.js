@@ -19,6 +19,8 @@ let workingOperation = ''
 
 let currentOperator = null
 
+let periodUsed = false
+
 // Function to clear the calculator to its default state, backspace the input line, and append a period.
 
 function clearAll ()
@@ -95,6 +97,7 @@ function operate (operation, operator)
 		workingOperation = result.toString()
 		outputArea.textContent = workingOperation
 		currentOperator = null
+		periodUsed = false
 	}
 }
 
@@ -131,6 +134,7 @@ function appendOperator (operator)
 			currentOperator = operator
 			workingOperation += operator
 			outputArea.textContent = workingOperation
+			periodUsed = false
 		}
 
 		else
@@ -138,6 +142,7 @@ function appendOperator (operator)
 			currentOperator = operator
 			workingOperation = workingOperation.slice(0, workingOperation.length - 1) + operator
 			outputArea.textContent = workingOperation
+			periodUsed = false
 		}
 	}
 
@@ -160,6 +165,30 @@ function appendOperator (operator)
 	}
 }
 
+function appendPeriod (calculation)
+{
+	// If the last character in workingOperation is a period, break the function.
+	if (calculation.length > 0 && calculation[calculation.length - 1].includes('.'))
+	{
+		return
+	}
+	else
+	{
+		if (periodUsed == false)
+		{
+			workingOperation += '.'
+			outputArea.textContent = workingOperation
+			periodUsed = true
+		}
+		else
+		{
+			return
+		}
+
+	}
+}
+
+
 // Event listeners for all keys on the calculator.
 
 numberInputs.forEach (function (button) {
@@ -170,9 +199,7 @@ operatorInputs.forEach (function (button) {
 	button.addEventListener('click', () => appendOperator(button.textContent))
 })
 
-periodKey.addEventListener('click', () => {
-	console.log('Period')
-})
+periodKey.addEventListener('click', () => appendPeriod(workingOperation))
 
 backspaceKey.addEventListener('click', () => {
 	console.log(workingOperation)
