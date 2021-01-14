@@ -333,11 +333,3 @@ clearAllKey.addEventListener('click', clearAll)
 enterKey.addEventListener('click', () => operate(workingOperation, currentOperator))
 
 window.addEventListener('keydown', keyboardInput)
-
-const consoleButton = document.querySelector('.console-button')
-consoleButton.addEventListener('click', () => dostuff(workingOperation))
-
-function dostuff (operation)
-{
-	console.log(operation)
-}
