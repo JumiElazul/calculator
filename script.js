@@ -49,6 +49,9 @@ function keyboardEventHandler (key)
 			case '.':
 				appendPeriod(workingOperation)
 				break
+			case 'Backspace':
+				backspace(workingOperation)
+				break
 			case 'Escape':
 				clearAll()
 				break
@@ -69,7 +72,7 @@ let currentOperator = null
 
 let periodUsed = false
 
-let validKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', '+', '/', '-', '*', '%', 'Enter', 'Escape']
+let validKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', '+', '/', '-', '*', '%', 'Enter', 'Escape', 'Backspace']
 
 // Functions to clear the calculator to its default state, backspace the input line, or append a period.
 
@@ -89,7 +92,13 @@ function backspace (calculation)
 		{
 			return
 		}
-
+		else if (calculation[calculation.length - 1] == '.')
+		{
+			calculation = calculation.slice(0, calculation.length - 1)
+			workingOperation = calculation
+			outputArea.textContent = workingOperation
+			periodUsed = false
+		}
 		else
 		{
 			calculation = calculation.slice(0, calculation.length - 1)
@@ -161,9 +170,23 @@ function operate (operation, operator)
 	else
 	{
 		let result = 0
+		let num1 = ``
+		let num2 = ``
 		let parts = operation.split(operator)
-		let num1 = parseFloat(parts[0])
-		let num2 = parseFloat(parts[1])
+
+		if (parts.length > 2)
+		{
+			num1 = parts[1]
+			num2 = parts[2]
+
+			num1 = `-${num1}`
+		}
+		else
+		{
+			num1 = parseFloat(parts[0])
+			num2 = parseFloat(parts[1])
+		}
+
 
 		if (isNaN(num1) || isNaN(num2))
 		{
@@ -222,11 +245,26 @@ function appendOperator (operator)
 
 	// If the operator has not been changed from null, operate function does not need to be run.
 
+	let minusCalculation = false
+
 	if (currentOperator === null)
 	{
-		// Checking to see if the last character is an operator.
+		// If the first character to be added is an operator, do nothing.
+		if (workingOperation.length == 0)
+		{
+			if (operator == '+' || operator == '*' || operator == '/' || operator == '%')
+			{
+				return
+			}
+			else
+			{
+				workingOperation = '-'
+				outputArea.textContent = workingOperation
+				minusCalculation = true
+			}
 
-		if (!legalOperators.includes(workingOperation[workingOperation.length - 1]))
+		}
+		else if (!legalOperators.includes(workingOperation[workingOperation.length - 1]))
 		{
 			currentOperator = operator
 			workingOperation += operator
@@ -246,14 +284,27 @@ function appendOperator (operator)
 	// If the operator has been set, we need to run operate when user clicks another operate.
 	else
 	{
+
+		// Case for the last character in the workingOperation being an operator.
 		if (legalOperators.includes(workingOperation[workingOperation.length - 1]))
 		{
 			currentOperator = operator
 			workingOperation = workingOperation.slice(0, workingOperation.length - 1) + operator
 			outputArea.textContent = workingOperation
 		}
+		// Case where the first character in the workingOperation is not an operator.
+		else if (!legalOperators.includes(workingOperation[0]))
+		{
+			operate(workingOperation, currentOperator)
+			currentOperator = operator
+			workingOperation += operator
+			outputArea.textContent = workingOperation
+		}
+		// Case where the first character in the workingOperation IS an operator.
 		else
 		{
+			console.log(workingOperation)
+			console.log(currentOperator)
 			operate(workingOperation, currentOperator)
 			currentOperator = operator
 			workingOperation += operator
@@ -261,6 +312,7 @@ function appendOperator (operator)
 		}
 	}
 }
+
 
 // Event listeners for all keys on the calculator.
 
@@ -281,3 +333,11 @@ clearAllKey.addEventListener('click', clearAll)
 enterKey.addEventListener('click', () => operate(workingOperation, currentOperator))
 
 window.addEventListener('keydown', keyboardInput)
+
+const consoleButton = document.querySelector('.console-button')
+consoleButton.addEventListener('click', () => dostuff(workingOperation))
+
+function dostuff (operation)
+{
+	console.log(operation)
+}
