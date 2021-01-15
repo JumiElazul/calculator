@@ -18,6 +18,31 @@ let legalKeys = [
  '/', '*', '-', '+', 'Enter', 'Backspace', 'Escape',
  ]
 
+let workingCalculation = ''
+
+function validInput (input)
+{
+	// If the input is a number.
+	if (!isNaN(input))
+	{
+
+		if (input === '0' && workingCalculation.length === 0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+
+	}
+}
+
+function updateDisplay ()
+{
+	outputArea.textContent = workingCalculation
+}
+
 // Functions for handling all keyboard input
 
 function keyboardEventHandler (e)
@@ -27,10 +52,17 @@ function keyboardEventHandler (e)
 	if (legalKeys.includes(key))
 	{
 		
-		console.log(key)
+		switch (key)
+		{
+			case (!isNaN(key)):
+				appendNumber(key)
+				break
+		}
 
 	}
 }
+
+// Functions to clear the calculator entirely, backspace, and append a period.
 
 function clearAll ()
 {
@@ -75,11 +107,15 @@ function operate (operand1, operand2, operator)
 
 }
 
-// Functions for changing the appearance of numbers, and displaying output to the user.
+// Functions for appending numbers and operators to the display.
 
 function appendNumber (number)
 {
-
+	if (validInput(number))
+	{
+		workingCalculation += number
+		updateDisplay()
+	}
 }
 
 function appendOperator (operator)
@@ -88,10 +124,14 @@ function appendOperator (operator)
 }
 
 
+
+
+
+
 // Event listeners for all keys on the calculator.
 
 numberInputs.forEach (function (button) {
-	button.addEventListener('click', () => console.log("Number"))
+	button.addEventListener('click', () => appendNumber(button.textContent))
 })
 
 operatorInputs.forEach (function (button) {
