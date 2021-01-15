@@ -51,14 +51,10 @@ function keyboardEventHandler (e)
 
 	if (legalKeys.includes(key))
 	{
-		
 		switch (key)
 		{
-			case (!isNaN(key)):
-				appendNumber(key)
-				break
+			
 		}
-
 	}
 }
 
