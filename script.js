@@ -11,11 +11,25 @@ const enterKey = document.querySelector('.input-enter-key')
 
 const outputArea = document.querySelector('.output-text')
 
+// Defining legal keyboard keys to take input from
+
+let legalKeys = [
+'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+ '/', '*', '-', '+', 'Enter', 'Backspace', 'Escape',
+ ]
+
 // Functions for handling all keyboard input
 
-function keyboardEventHandler (key)
+function keyboardEventHandler (e)
 {
+	const key = e.key
 
+	if (legalKeys.includes(key))
+	{
+		
+		console.log(key)
+
+	}
 }
 
 function clearAll ()
@@ -92,4 +106,4 @@ clearAllKey.addEventListener('click', () => console.log("Clear All"))
 
 enterKey.addEventListener('click', () => console.log("Enter Key"))
 
-window.addEventListener('keydown', () => keyboardEventHandler)
+window.addEventListener('keydown', keyboardEventHandler)
