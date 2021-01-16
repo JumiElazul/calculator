@@ -51,9 +51,32 @@ function keyboardEventHandler (e)
 
 	if (legalKeys.includes(key))
 	{
-		switch (key)
+		
+		if (!isNaN(key))
 		{
-			
+			appendNumber(key)
+		}
+		else
+		{
+			switch (key)
+			{
+				case '+':
+					break
+				case '-':
+					break
+				case '*':
+					break
+				case '/':
+					break
+				case '%':
+					break
+				case 'Enter':
+					break
+				case 'Backspace':
+					break
+				case 'Escape':
+					break
+			}
 		}
 	}
 }
@@ -66,12 +89,16 @@ function clearAll ()
 }
 
 
-function backspace (calculation)
+function backspace (input)
 {
-
+	if (input.length > 0 && legalKeys.includes(input[input.length - 1]))
+	{
+		workingCalculation = workingCalculation.slice(0, workingCalculation.length - 1)
+		updateDisplay()
+	}
 }
 
-function appendPeriod (calculation)
+function appendPeriod ()
 {
 
 }
@@ -136,7 +163,7 @@ operatorInputs.forEach (function (button) {
 
 periodKey.addEventListener('click', () => console.log("Period"))
 
-backspaceKey.addEventListener('click', () => console.log("Backspace"))
+backspaceKey.addEventListener('click', () => backspace(workingCalculation))
 
 clearAllKey.addEventListener('click', () => console.log("Clear All"))
 
