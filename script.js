@@ -221,6 +221,16 @@ function appendOperator (operator)
 		workingCalculation += operator
 		updateDisplay()
 	}
+	else
+	{
+
+		if (workingCalculation.length > 0)
+		{
+			workingCalculation = workingCalculation.slice(0, workingCalculation.length - 1)
+			workingCalculation += operator
+			updateDisplay()
+		}
+	}
 }
 
 function appendPeriod (calculation)
