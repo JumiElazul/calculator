@@ -1,5 +1,4 @@
-// Assigning variables to all parts of the HTML that will either be clicked, or show input 
-// or output to the user.
+// Assigning variables to keys/areas for later selection.
 
 const numberInputs = document.querySelectorAll('.input-number')
 const operatorInputs = document.querySelectorAll('.input-operator')
@@ -11,7 +10,10 @@ const enterKey = document.querySelector('.input-enter-key')
 
 const outputArea = document.querySelector('.output-text')
 
-// Defining legal keyboard keys to take input from
+
+
+
+// Defining legal keyboard keys and global variables.
 
 let legalKeys = [
 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -19,10 +21,28 @@ let legalKeys = [
  ]
 
 let workingCalculation = ''
+let periodUsed = false
 
-function validInput (input)
+
+
+
+// Functions to update display and check for valid inputs from other functions.
+
+function updateDisplay ()
 {
-	// If the input is a number.
+	if (workingCalculation.length == 0)
+	{
+		outputArea.textContent = '0'
+	}
+	else
+	{
+		outputArea.textContent = workingCalculation
+	}
+}
+
+function isValidInput (input)
+{
+	// All cases where the input is a number
 	if (!isNaN(input))
 	{
 
@@ -36,12 +56,15 @@ function validInput (input)
 		}
 
 	}
+	else if (input == '.')
+	{
+		return periodUsed == false ? true : false
+	}
 }
 
-function updateDisplay ()
-{
-	outputArea.textContent = workingCalculation
-}
+
+
+
 
 // Functions for handling all keyboard input
 
@@ -61,31 +84,42 @@ function keyboardEventHandler (e)
 			switch (key)
 			{
 				case '+':
+					appendOperator('+')
 					break
 				case '-':
+					appendOperator('-')
 					break
 				case '*':
+					appendOperator('*')
 					break
 				case '/':
+					appendOperator('/')
 					break
 				case '%':
+					appendOperator('%')
 					break
 				case 'Enter':
 					break
 				case 'Backspace':
-					break
+					backspace(workingCalculation)
 				case 'Escape':
-					break
+					clearAll()
 			}
 		}
 	}
 }
 
-// Functions to clear the calculator entirely, backspace, and append a period.
+
+
+
+
+// Functions to clear the calculator entirely, and backspace.
 
 function clearAll ()
 {
-
+	workingCalculation = ''
+	periodUsed = false
+	updateDisplay()
 }
 
 
@@ -98,10 +132,9 @@ function backspace (input)
 	}
 }
 
-function appendPeriod ()
-{
 
-}
+
+
 
 // Functions for all the math the calculator will use.
 
@@ -130,11 +163,15 @@ function operate (operand1, operand2, operator)
 
 }
 
+
+
+
+
 // Functions for appending numbers and operators to the display.
 
 function appendNumber (number)
 {
-	if (validInput(number))
+	if (isValidInput(number))
 	{
 		workingCalculation += number
 		updateDisplay()
@@ -146,6 +183,15 @@ function appendOperator (operator)
 
 }
 
+function appendPeriod (calculation)
+{
+	if (isValidInput(calculation))
+	{
+		workingCalculation += '.'
+		periodUsed = true
+		updateDisplay()
+	}
+}
 
 
 
@@ -161,12 +207,16 @@ operatorInputs.forEach (function (button) {
 	button.addEventListener('click', () => console.log("Operator"))
 })
 
-periodKey.addEventListener('click', () => console.log("Period"))
+periodKey.addEventListener('click', () => appendPeriod(workingCalculation))
 
 backspaceKey.addEventListener('click', () => backspace(workingCalculation))
 
-clearAllKey.addEventListener('click', () => console.log("Clear All"))
+clearAllKey.addEventListener('click', clearAll)
 
 enterKey.addEventListener('click', () => console.log("Enter Key"))
 
 window.addEventListener('keydown', keyboardEventHandler)
+
+const consoleButton = document.querySelector(".console-button")
+
+consoleButton.addEventListener('click', () => console.log(workingCalculation))
