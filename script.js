@@ -17,7 +17,7 @@ let legalKeys = [
  '/', '*', '-', '+', '.', 'Enter', 'Backspace', 'Escape',
  ]
 
- let legalOperators = ['+', '-', '*', '/', '%']
+let legalOperators = ['+', '-', '*', '/', '%']
 
 let workingCalculation = ''
 let periodUsed = false
@@ -255,11 +255,34 @@ function appendNumber (number)
 
 function appendOperator (operator)
 {
-
-	
-
 	if (isValidInput(operator))
 	{
+		let operateCounter = 0
+
+		if (workingCalculation[0] == '-')
+		{
+			operateCounter = 1
+		}
+
+		for (let i = 0; i < workingCalculation.length; i++)
+		{
+			if (legalOperators.includes(workingCalculation[i]))
+			{
+				operateCounter ++
+			}
+		}
+
+		if (operateCounter == 1)
+		{
+			operate(workingCalculation, currentOperator)
+			currentOperator = operator
+		}
+		else if (operateCounter > 2)
+		{
+			operate(workingCalculation, currentOperator)
+			currentOperator = operator
+		}
+
 		periodUsed = false
 		workingCalculation += operator
 		currentOperator = operator
@@ -267,8 +290,7 @@ function appendOperator (operator)
 	}
 	else
 	{
-
-		if (workingCalculation.length > 0)
+		if (workingCalculation.length > 1)
 		{
 			workingCalculation = workingCalculation.slice(0, workingCalculation.length - 1)
 			workingCalculation += operator
@@ -309,5 +331,3 @@ enterKey.addEventListener('click', () => operate(workingCalculation, currentOper
 window.addEventListener('keydown', keyboardEventHandler)
 
 const consoleButton = document.querySelector(".console-button")
-
-consoleButton.addEventListener('click', () => console.log(workingCalculation, typeof workingCalculation))
