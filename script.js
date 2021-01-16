@@ -94,10 +94,13 @@ function keyboardEventHandler (e)
 				case '%':
 					appendOperator('%')
 					break
+				case '.':
+					appendPeriod(workingCalculation)
 				case 'Enter':
 					break
 				case 'Backspace':
 					backspace(workingCalculation)
+					break
 				case 'Escape':
 					clearAll()
 			}
