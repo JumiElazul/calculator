@@ -17,7 +17,7 @@ const outputArea = document.querySelector('.output-text')
 
 let legalKeys = [
 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
- '/', '*', '-', '+', 'Enter', 'Backspace', 'Escape',
+ '/', '*', '-', '+', '.', 'Enter', 'Backspace', 'Escape',
  ]
 
 let workingCalculation = ''
@@ -55,10 +55,6 @@ function isValidInput (input)
 			return true;
 		}
 
-	}
-	else if (input == '.')
-	{
-		return periodUsed == false ? true : false
 	}
 }
 
@@ -127,6 +123,11 @@ function backspace (input)
 {
 	if (input.length > 0 && legalKeys.includes(input[input.length - 1]))
 	{
+		if (workingCalculation[workingCalculation.length - 1] == '.')
+		{
+			periodUsed = false
+		}	
+		
 		workingCalculation = workingCalculation.slice(0, workingCalculation.length - 1)
 		updateDisplay()
 	}
@@ -185,7 +186,7 @@ function appendOperator (operator)
 
 function appendPeriod (calculation)
 {
-	if (isValidInput(calculation))
+	if (periodUsed === false)
 	{
 		workingCalculation += '.'
 		periodUsed = true
