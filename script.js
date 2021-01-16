@@ -20,8 +20,12 @@ let legalKeys = [
  '/', '*', '-', '+', '.', 'Enter', 'Backspace', 'Escape',
  ]
 
+ let legalOperators = ['+', '-', '*', '/', '%']
+
 let workingCalculation = ''
 let periodUsed = false
+let currentOperator = null
+
 
 
 
@@ -42,7 +46,7 @@ function updateDisplay ()
 
 function isValidInput (input)
 {
-	// All cases where the input is a number
+	// Cases where the input is a number
 	if (!isNaN(input))
 	{
 
@@ -54,6 +58,26 @@ function isValidInput (input)
 		{
 			return true;
 		}
+	}
+	// Cases where the input is an operator
+
+	else if (legalOperators.includes(input))
+	{
+		const length = workingCalculation.length
+
+		if (length == 0 && input == '-')
+		{
+			return true;
+		}
+		else if (length > 0 && !legalOperators.includes(workingCalculation[length - 1]))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
 
 	}
 }
@@ -124,6 +148,13 @@ function clearAll ()
 
 function backspace (input)
 {
+	const length = workingCalculation.length
+
+	if (legalOperators.includes(workingCalculation[length - 1]))
+	{
+		return;
+	}
+
 	if (input.length > 0 && legalKeys.includes(input[input.length - 1]))
 	{
 		if (workingCalculation[workingCalculation.length - 1] == '.')
@@ -184,7 +215,12 @@ function appendNumber (number)
 
 function appendOperator (operator)
 {
-
+	if (isValidInput(operator))
+	{
+		periodUsed = false
+		workingCalculation += operator
+		updateDisplay()
+	}
 }
 
 function appendPeriod (calculation)
@@ -208,7 +244,7 @@ numberInputs.forEach (function (button) {
 })
 
 operatorInputs.forEach (function (button) {
-	button.addEventListener('click', () => console.log("Operator"))
+	button.addEventListener('click', () => appendOperator(button.textContent))
 })
 
 periodKey.addEventListener('click', () => appendPeriod(workingCalculation))
