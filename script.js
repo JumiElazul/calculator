@@ -120,7 +120,9 @@ function keyboardEventHandler (e)
 					break
 				case '.':
 					appendPeriod(workingCalculation)
+					break
 				case 'Enter':
+					operate(workingCalculation, currentOperator)
 					break
 				case 'Backspace':
 					backspace(workingCalculation)
@@ -193,8 +195,58 @@ function mod (num1, num2) {
 	return (num1 % num2 + num2) % num2
 }
 
-function operate (operand1, operand2, operator)
+function operate (calculation, operator)
 {
+	if (calculation.length === 0)
+	{
+		return;
+	}
+
+	let finalResult
+	let parts = calculation.split(operator)
+	let num1 = 0
+	let num2 = 0
+
+	// If length of array is > 2, two negative numbers are in calculation.
+
+	if (parts.length > 2)
+	{
+		// Flip the negativity.
+		num1 = `-${parts[1]}`
+		num1 = parseFloat(num1)
+		num2 = parseFloat(parts[2])
+	}
+	else
+	{
+	num1 = parseFloat(parts[0])
+	num2 = parseFloat(parts[1])
+	}
+
+	switch (operator)
+	{
+		case '+':
+			result = add(num1, num2)
+			break
+
+		case '-':
+			result = subtract(num1, num2)
+			break
+
+		case '*':
+			result = multiply(num1, num2)
+			break
+
+		case '/':
+			result = divide(num1, num2)
+			break
+
+		case '%':
+			result = mod(num1, num2)
+			break
+	}
+
+	workingCalculation = result.toString()
+	updateDisplay()
 
 }
 
@@ -219,6 +271,7 @@ function appendOperator (operator)
 	{
 		periodUsed = false
 		workingCalculation += operator
+		currentOperator = operator
 		updateDisplay()
 	}
 	else
@@ -228,6 +281,7 @@ function appendOperator (operator)
 		{
 			workingCalculation = workingCalculation.slice(0, workingCalculation.length - 1)
 			workingCalculation += operator
+			currentOperator = operator
 			updateDisplay()
 		}
 	}
@@ -263,7 +317,7 @@ backspaceKey.addEventListener('click', () => backspace(workingCalculation))
 
 clearAllKey.addEventListener('click', clearAll)
 
-enterKey.addEventListener('click', () => console.log("Enter Key"))
+enterKey.addEventListener('click', () => operate(workingCalculation, currentOperator))
 
 window.addEventListener('keydown', keyboardEventHandler)
 
