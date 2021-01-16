@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 // Assigning variables to keys/areas for later selection.
 
 const numberInputs = document.querySelectorAll('.input-number')
@@ -333,4 +331,3 @@ enterKey.addEventListener('click', () => operate(workingCalculation, currentOper
 window.addEventListener('keydown', keyboardEventHandler)
 
 const consoleButton = document.querySelector(".console-button")
->>>>>>> refactoring
