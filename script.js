@@ -10,9 +10,6 @@ const enterKey = document.querySelector('.input-enter-key')
 
 const outputArea = document.querySelector('.output-text')
 
-
-
-
 // Defining legal keyboard keys and global variables.
 
 let legalKeys = [
@@ -25,10 +22,6 @@ let legalKeys = [
 let workingCalculation = ''
 let periodUsed = false
 let currentOperator = null
-
-
-
-
 
 // Functions to update display and check for valid inputs from other functions.
 
@@ -47,6 +40,7 @@ function updateDisplay ()
 function isValidInput (input)
 {
 	// Cases where the input is a number
+
 	if (!isNaN(input))
 	{
 
@@ -59,11 +53,14 @@ function isValidInput (input)
 			return true;
 		}
 	}
+	
 	// Cases where the input is an operator
 
-	else if (legalOperators.includes(input))
+	else
 	{
 		const length = workingCalculation.length
+
+		// Letting the first number be negative
 
 		if (length == 0 && input == '-')
 		{
@@ -77,14 +74,8 @@ function isValidInput (input)
 		{
 			return false;
 		}
-
-
 	}
 }
-
-
-
-
 
 // Functions for handling all keyboard input
 
@@ -134,19 +125,15 @@ function keyboardEventHandler (e)
 	}
 }
 
-
-
-
-
 // Functions to clear the calculator entirely, and backspace.
 
 function clearAll ()
 {
 	workingCalculation = ''
+	currentOperator = null
 	periodUsed = false
 	updateDisplay()
 }
-
 
 function backspace (input)
 {
@@ -168,10 +155,6 @@ function backspace (input)
 		updateDisplay()
 	}
 }
-
-
-
-
 
 // Functions for all the math the calculator will use.
 
@@ -197,13 +180,21 @@ function mod (num1, num2) {
 
 function operate (calculation, operator)
 {
-	if (calculation.length === 0)
+	// Disallowing clicking of enter without any input
+	if (calculation.length === 0 || currentOperator === null)
 	{
 		return;
 	}
 
-	let finalResult
+	let result = 0
 	let parts = calculation.split(operator)
+
+	// Error check for if only one number has been input
+	if (parts[1] == '')
+	{
+		return;
+	}
+
 	let num1 = 0
 	let num2 = 0
 
@@ -246,13 +237,10 @@ function operate (calculation, operator)
 	}
 
 	workingCalculation = result.toString()
+	currentOperator = null
 	updateDisplay()
 
 }
-
-
-
-
 
 // Functions for appending numbers and operators to the display.
 
@@ -267,6 +255,9 @@ function appendNumber (number)
 
 function appendOperator (operator)
 {
+
+	
+
 	if (isValidInput(operator))
 	{
 		periodUsed = false
@@ -297,11 +288,7 @@ function appendPeriod (calculation)
 	}
 }
 
-
-
-
-
-// Event listeners for all keys on the calculator.
+// Event listeners
 
 numberInputs.forEach (function (button) {
 	button.addEventListener('click', () => appendNumber(button.textContent))
@@ -323,4 +310,4 @@ window.addEventListener('keydown', keyboardEventHandler)
 
 const consoleButton = document.querySelector(".console-button")
 
-consoleButton.addEventListener('click', () => console.log(workingCalculation))
+consoleButton.addEventListener('click', () => console.log(workingCalculation, typeof workingCalculation))
