@@ -1,4 +1,4 @@
-// Assigning variables to keys/areas for later selection.
+// ------------------- Assigning variables to keys/areas for later selection. -------------------
 
 const numberInputs = document.querySelectorAll('.input-number')
 const operatorInputs = document.querySelectorAll('.input-operator')
@@ -10,7 +10,7 @@ const enterKey = document.querySelector('.input-enter-key')
 
 const outputArea = document.querySelector('.output-text')
 
-// Defining legal keyboard keys and global variables.
+// ------------------- Defining legal keyboard keys and global variables. -------------------
 
 let legalKeys = [
 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -23,7 +23,7 @@ let workingCalculation = ''
 let periodUsed = false
 let currentOperator = null
 
-// Functions to update display and check for valid inputs from other functions.
+// -------- Functions to update display and check for valid inputs from other functions. ---------
 
 function updateDisplay ()
 {
@@ -77,7 +77,7 @@ function isValidInput (input)
 	}
 }
 
-// Functions to clear the calculator entirely, and backspace.
+// --------------- Functions to clear the calculator entirely, and backspace. ---------------
 
 function clearAll ()
 {
@@ -108,7 +108,7 @@ function backspace (input)
 	}
 }
 
-// Functions for all the math the calculator will use.
+// ------------------- Functions for all the math the calculator will use. -------------------
 
 function add (num1, num2) {
 	return num1 + num2
@@ -198,7 +198,7 @@ function operate (calculation, operator)
 
 }
 
-// Functions for appending numbers and operators to the display.
+// ------------------- Functions for appending numbers and operators to the display. -------------------
 
 function appendNumber (number)
 {
@@ -265,3 +265,206 @@ function appendPeriod (calculation)
 		updateDisplay()
 	}
 }
+
+
+
+
+
+
+
+
+// ------------------- Keyboard Event Listeners -------------------
+
+function keyboardEventHandler (e)
+{
+	const key = e.key
+
+	if (legalKeys.includes(key))
+	{
+		
+		if (!isNaN(key))
+		{
+
+			numberInputs.forEach (function (button) {
+				if (button.textContent == key)
+				{
+					button.classList.remove('animate-number-button-class')
+
+					setTimeout (function () {
+						button.classList.add('animate-number-button-class')
+					}, 5)
+				}
+			})
+
+			appendNumber(key)
+		}
+		else
+		{
+			let oper = null
+			switch (key)
+			{
+				case '+':
+					oper = document.getElementById('plus-but')
+
+					oper.classList.remove('animate-operator-button-class')
+
+					setTimeout (function () {
+						oper.classList.add('animate-operator-button-class')
+					}, 5)
+					appendOperator('+')
+					break
+
+				case '-':
+					oper = document.getElementById('minus-but')
+
+					oper.classList.remove('animate-operator-button-class')
+
+					setTimeout (function () {
+						oper.classList.add('animate-operator-button-class')
+					}, 5)
+					appendOperator('-')
+					break
+
+				case '*':
+					oper = document.getElementById('star-but')
+
+					oper.classList.remove('animate-operator-button-class')
+
+					setTimeout (function () {
+						oper.classList.add('animate-operator-button-class')
+					}, 5)
+					appendOperator('*')
+					break
+
+				case '/':
+					oper = document.getElementById('divide-but')
+
+					oper.classList.remove('animate-operator-button-class')
+
+					setTimeout (function () {
+						oper.classList.add('animate-operator-button-class')
+					}, 5)
+					appendOperator('/')
+					break
+
+				case '%':
+					oper = document.getElementById('mod-but')
+
+					oper.classList.remove('animate-operator-button-class')
+
+					setTimeout (function () {
+						oper.classList.add('animate-operator-button-class')
+					}, 5)
+					appendOperator('%')
+					break
+
+				case '.':
+					periodKey.classList.remove('animate-number-button-class')
+
+					setTimeout (function () {
+						periodKey.classList.add('animate-number-button-class')
+					}, 5)
+					appendPeriod(workingCalculation)
+					break
+
+				case 'Enter':
+					enterKey.classList.remove('animate-enter-button-class')
+
+					setTimeout (function () {
+						enterKey.classList.add('animate-enter-button-class')
+					}, 5)
+					operate(workingCalculation, currentOperator)
+					break
+
+				case 'Backspace':
+					backspaceKey.classList.remove('animate-clear-button-class')
+
+					setTimeout (function () {
+						backspaceKey.classList.add('animate-clear-button-class')
+					}, 5)
+					backspace(workingCalculation)
+					break
+
+				case 'Escape':
+					clearAllKey.classList.remove('animate-clear-button-class')
+
+					setTimeout (function () {
+						clearAllKey.classList.add('animate-clear-button-class')
+					}, 5)
+					clearAll()
+			}
+		}
+	}
+}
+
+// ------------------- Mouse Event listeners -------------------
+
+numberInputs.forEach (function (button) {
+	button.addEventListener('click', () => appendNumber(button.textContent))
+})
+
+operatorInputs.forEach (function (button) {
+	button.addEventListener('click', () => appendOperator(button.textContent))
+})
+
+periodKey.addEventListener('click', () => appendPeriod(workingCalculation))
+
+backspaceKey.addEventListener('click', () => backspace(workingCalculation))
+
+clearAllKey.addEventListener('click', clearAll)
+
+enterKey.addEventListener('click', () => operate(workingCalculation, currentOperator))
+
+numberInputs.forEach (function (button) {
+	button.addEventListener('click', () => {
+		button.classList.remove('animate-number-button-class')
+
+		setTimeout(function () {
+			button.classList.add('animate-number-button-class')
+		}, 5)
+	})
+})
+
+periodKey.addEventListener('click', () => {
+	periodKey.classList.remove('animate-number-button-class')
+
+	setTimeout(function () {
+		periodKey.classList.add('animate-number-button-class')
+	}, 5)
+})
+
+operatorInputs.forEach (function (button) {
+	button.addEventListener('click', () => {
+		button.classList.remove('animate-operator-button-class')
+
+		setTimeout(function () {
+			button.classList.add('animate-operator-button-class')
+		}, 5)
+	})
+})
+
+enterKey.addEventListener('click', () => {
+	enterKey.classList.remove('animate-enter-button-class')
+
+	setTimeout(function () {
+		enterKey.classList.add('animate-enter-button-class')
+	}, 5)
+})
+
+clearAllKey.addEventListener('click', () => {
+	clearAllKey.classList.remove('animate-clear-button-class')
+
+	setTimeout(function () {
+		clearAllKey.classList.add('animate-clear-button-class')
+	}, 5)
+})
+
+backspaceKey.addEventListener('click', () => {
+	backspaceKey.classList.remove('animate-clear-button-class')
+
+	setTimeout(function () {
+		backspaceKey.classList.add('animate-clear-button-class')
+	}, 5)
+})
+
+window.addEventListener('keydown', keyboardEventHandler)
