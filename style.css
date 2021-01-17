@@ -108,39 +108,17 @@ button {
 	background: rgba(255, 150, 150, .5);
 }
 
-.input-clear:hover,
-.input-clear-all:hover {
-	background: rgb(255, 150, 150);
-	transform: scale(1.02);
-}
-
 .input-number,
 .input-period {
 	background: rgba(150, 150, 255, .4);
-}
-
-.input-number:hover,
-.input-period:hover {
-	transform: scale(1.02);
-	background: rgb(150, 150, 255);
 }
 
 .input-enter-key {
 	background: rgba(150, 255, 150, .6);
 }
 
-.input-enter-key:hover {
-	transform: scale(1.02);
-	background: rgb(150, 255, 150);
-}
-
 .input-operator {
 	background: rgba(255, 255, 120, .6);
-}
-
-.input-operator:hover {
-	transform: scale(1.02);
-	background: rgb(255, 255, 120);
 }
 
 .instructions {
@@ -150,4 +128,26 @@ button {
 
 footer {
 	margin-top: 50px;
+}
+
+.input-operator:hover {
+	transform: scale(1.02);
+	background: rgb(255, 255, 120);
+}
+
+.input-enter-key:hover {
+	transform: scale(1.02);
+	background: rgb(150, 255, 150);
+}
+
+.input-number:hover,
+.input-period:hover {
+	transform: scale(1.02);
+	background: rgb(150, 150, 255);
+}
+
+.input-clear:hover,
+.input-clear-all:hover {
+	background: rgb(255, 150, 150);
+	transform: scale(1.02);
 }
