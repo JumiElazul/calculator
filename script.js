@@ -349,3 +349,27 @@ operatorInputs.forEach (function (button) {
 		}, 5)
 	})
 })
+
+enterKey.addEventListener('click', () => {
+	enterKey.classList.remove('animate-enter-button-class')
+
+	setTimeout(function () {
+		enterKey.classList.add('animate-enter-button-class')
+	}, 5)
+})
+
+clearAllKey.addEventListener('click', () => {
+	clearAllKey.classList.remove('animate-clear-button-class')
+
+	setTimeout(function () {
+		clearAllKey.classList.add('animate-clear-button-class')
+	}, 5)
+})
+
+backspaceKey.addEventListener('click', () => {
+	backspaceKey.classList.remove('animate-clear-button-class')
+
+	setTimeout(function () {
+		backspaceKey.classList.add('animate-clear-button-class')
+	}, 5)
+})

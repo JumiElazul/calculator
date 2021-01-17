@@ -114,11 +114,11 @@ button {
 }
 
 .input-enter-key {
-	background: rgba(150, 255, 150, .6);
+	background: rgba(150, 255, 150, .55);
 }
 
 .input-operator {
-	background: rgba(255, 255, 120, .6);
+	background: rgba(255, 255, 120, .5);
 }
 
 .instructions {
@@ -131,25 +131,21 @@ footer {
 }
 
 .input-operator:hover {
-	transform: scale(1.02);
-	background: rgba(255, 255, 120, .7);
+	background: rgba(255, 255, 120, .65);
 }
 
 .input-enter-key:hover {
-	transform: scale(1.02);
-	background: rgba(150, 255, 150);
+	background: rgba(150, 255, 150, .65);
 }
 
 .input-number:hover,
 .input-period:hover {
-	transform: scale(1.02);
-	background: rgba(150, 150, 255, .5);
+	background: rgba(150, 150, 255, .55);
 }
 
 .input-clear:hover,
 .input-clear-all:hover {
-	background: rgba(255, 150, 150);
-	transform: scale(1.02);
+	background: rgba(255, 150, 150, .65);
 }
 
 .animate-number-button-class {
@@ -162,6 +158,16 @@ footer {
 	animation-duration: .1s;
 }
 
+.animate-enter-button-class {
+	animation: animate-enter-button;
+	animation-duration: .1s;
+}
+
+.animate-clear-button-class {
+	animation: animate-clear-button;
+	animation-duration: .1s;
+}
+
 @keyframes animate-number-button {
 	0% {
 		transform: scale(1.00);
@@ -170,7 +176,7 @@ footer {
 		background: rgb(150, 150, 255)
 	}
 	100% {
-		transform: scale(1.06);
+		transform: scale(1.04);
 	}
 }
 
@@ -182,6 +188,30 @@ footer {
 		background: rgb(255, 255, 120);
 	}
 	100% {
-		transform: scale(1.06);
+		transform: scale(1.04);
+	}
+}
+
+@keyframes animate-enter-button {
+	0% {
+		transform: scale(1.00);
+	}
+	50% {
+		background: rgb(150, 255, 150);
+	}
+	100% {
+		transform: scale(1.04);
+	}
+}
+
+@keyframes animate-clear-button {
+	0% {
+		transform: scale(1.00);
+	}
+	50% {
+		background: rgb(255, 150, 150);
+	}
+	100% {
+		transform: scale(1.04);
 	}
 }
