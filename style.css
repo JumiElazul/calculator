@@ -130,26 +130,58 @@ footer {
 	margin-top: 50px;
 }
 
-/* .input-operator:hover {
+.input-operator:hover {
 	transform: scale(1.02);
-	background: rgb(255, 255, 120);
+	background: rgba(255, 255, 120, .7);
 }
 
 .input-enter-key:hover {
 	transform: scale(1.02);
-	background: rgb(150, 255, 150);
+	background: rgba(150, 255, 150);
 }
 
 .input-number:hover,
 .input-period:hover {
 	transform: scale(1.02);
-	background: rgb(150, 150, 255);
+	background: rgba(150, 150, 255, .5);
 }
 
 .input-clear:hover,
 .input-clear-all:hover {
-	background: rgb(255, 150, 150);
+	background: rgba(255, 150, 150);
 	transform: scale(1.02);
 }
 
- */
+.animate-number-button-class {
+	animation: animate-number-button;
+	animation-duration: .1s;
+}
+
+.animate-operator-button-class {
+	animation: animate-operator-button;
+	animation-duration: .1s;
+}
+
+@keyframes animate-number-button {
+	0% {
+		transform: scale(1.00);
+	}
+	50% {
+		background: rgb(150, 150, 255)
+	}
+	100% {
+		transform: scale(1.06);
+	}
+}
+
+@keyframes animate-operator-button {
+	0% {
+		transform: scale(1.00);
+	}
+	50% {
+		background: rgb(255, 255, 120);
+	}
+	100% {
+		transform: scale(1.06);
+	}
+}

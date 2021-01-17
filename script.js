@@ -329,3 +329,23 @@ clearAllKey.addEventListener('click', clearAll)
 enterKey.addEventListener('click', () => operate(workingCalculation, currentOperator))
 
 window.addEventListener('keydown', keyboardEventHandler)
+
+numberInputs.forEach (function (button) {
+	button.addEventListener('click', () => {
+		button.classList.remove('animate-number-button-class')
+
+		setTimeout(function () {
+			button.classList.add('animate-number-button-class')
+		}, 5)
+	})
+})
+
+operatorInputs.forEach (function (button) {
+	button.addEventListener('click', () => {
+		button.classList.remove('animate-operator-button-class')
+
+		setTimeout(function () {
+			button.classList.add('animate-operator-button-class')
+		}, 5)
+	})
+})
