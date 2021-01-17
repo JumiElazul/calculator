@@ -146,6 +146,10 @@ function operate (calculation, operator)
 	{
 		return;
 	}
+	else if (parts.length < 3 && parts[0] == '' && operator == '-')
+	{
+		return;
+	}
 
 	let num1 = 0
 	let num2 = 0
