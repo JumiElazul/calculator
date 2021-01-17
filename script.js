@@ -23,6 +23,54 @@ let workingCalculation = ''
 let periodUsed = false
 let currentOperator = null
 
+// Functions for handling all keyboard input
+
+function keyboardEventHandler (e)
+{
+	const key = e.key
+
+	if (legalKeys.includes(key))
+	{
+		
+		if (!isNaN(key))
+		{
+			appendNumber(key)
+		}
+		else
+		{
+			switch (key)
+			{
+				case '+':
+					appendOperator('+')
+					break
+				case '-':
+					appendOperator('-')
+					break
+				case '*':
+					appendOperator('*')
+					break
+				case '/':
+					appendOperator('/')
+					break
+				case '%':
+					appendOperator('%')
+					break
+				case '.':
+					appendPeriod(workingCalculation)
+					break
+				case 'Enter':
+					operate(workingCalculation, currentOperator)
+					break
+				case 'Backspace':
+					backspace(workingCalculation)
+					break
+				case 'Escape':
+					clearAll()
+			}
+		}
+	}
+}
+
 // Functions to update display and check for valid inputs from other functions.
 
 function updateDisplay ()
@@ -73,54 +121,6 @@ function isValidInput (input)
 		else
 		{
 			return false;
-		}
-	}
-}
-
-// Functions for handling all keyboard input
-
-function keyboardEventHandler (e)
-{
-	const key = e.key
-
-	if (legalKeys.includes(key))
-	{
-		
-		if (!isNaN(key))
-		{
-			appendNumber(key)
-		}
-		else
-		{
-			switch (key)
-			{
-				case '+':
-					appendOperator('+')
-					break
-				case '-':
-					appendOperator('-')
-					break
-				case '*':
-					appendOperator('*')
-					break
-				case '/':
-					appendOperator('/')
-					break
-				case '%':
-					appendOperator('%')
-					break
-				case '.':
-					appendPeriod(workingCalculation)
-					break
-				case 'Enter':
-					operate(workingCalculation, currentOperator)
-					break
-				case 'Backspace':
-					backspace(workingCalculation)
-					break
-				case 'Escape':
-					clearAll()
-			}
 		}
 	}
 }
@@ -329,5 +329,3 @@ clearAllKey.addEventListener('click', clearAll)
 enterKey.addEventListener('click', () => operate(workingCalculation, currentOperator))
 
 window.addEventListener('keydown', keyboardEventHandler)
-
-const consoleButton = document.querySelector(".console-button")
