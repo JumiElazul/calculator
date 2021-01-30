@@ -13,9 +13,9 @@ const outputArea = document.querySelector('.output-text')
 // ------------------- Defining legal keyboard keys and global variables. -------------------
 
 let legalKeys = [
-'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
- '/', '*', '-', '+', '.', '%', 'Enter', 'Backspace', 'Escape',
- ]
+	'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+	'/', '*', '-', '+', '.', '%', 'Enter', 'Backspace', 'Escape',
+]
 
 let legalOperators = ['+', '-', '*', '/', '%']
 
@@ -25,53 +25,42 @@ let currentOperator = null
 
 // -------- Functions to update display and check for valid inputs from other functions. ---------
 
-function updateDisplay ()
-{
-	if (workingCalculation.length == 0)
-	{
+function updateDisplay() {
+	if (workingCalculation.length == 0) {
 		outputArea.textContent = '0'
 	}
-	else
-	{
+	else {
 		outputArea.textContent = workingCalculation
 	}
 }
 
-function isValidInput (input)
-{
+function isValidInput(input) {
 	// Cases where the input is a number
 
-	if (!isNaN(input))
-	{
+	if (!isNaN(input)) {
 
-		if (input === '0' && workingCalculation.length === 0)
-		{
+		if (input === '0' && workingCalculation.length === 0) {
 			return false;
 		}
-		else
-		{
+		else {
 			return true;
 		}
 	}
-	
+
 	// Cases where the input is an operator
 
-	else
-	{
+	else {
 		const length = workingCalculation.length
 
 		// Letting the first number be negative
 
-		if (length == 0 && input == '-')
-		{
+		if (length == 0 && input == '-') {
 			return true;
 		}
-		else if (length > 0 && !legalOperators.includes(workingCalculation[length - 1]))
-		{
+		else if (length > 0 && !legalOperators.includes(workingCalculation[length - 1])) {
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
@@ -79,30 +68,25 @@ function isValidInput (input)
 
 // --------------- Functions to clear the calculator entirely, and backspace. ---------------
 
-function clearAll ()
-{
+function clearAll() {
 	workingCalculation = ''
 	currentOperator = null
 	periodUsed = false
 	updateDisplay()
 }
 
-function backspace (input)
-{
+function backspace(input) {
 	const length = workingCalculation.length
 
-	if (legalOperators.includes(workingCalculation[length - 1]))
-	{
+	if (legalOperators.includes(workingCalculation[length - 1])) {
 		return;
 	}
 
-	if (input.length > 0 && legalKeys.includes(input[input.length - 1]))
-	{
-		if (workingCalculation[workingCalculation.length - 1] == '.')
-		{
+	if (input.length > 0 && legalKeys.includes(input[input.length - 1])) {
+		if (workingCalculation[workingCalculation.length - 1] == '.') {
 			periodUsed = false
-		}	
-		
+		}
+
 		workingCalculation = workingCalculation.slice(0, workingCalculation.length - 1)
 		updateDisplay()
 	}
@@ -110,31 +94,29 @@ function backspace (input)
 
 // ------------------- Functions for all the math the calculator will use. -------------------
 
-function add (num1, num2) {
+function add(num1, num2) {
 	return num1 + num2
 }
 
-function subtract (num1, num2) {
+function subtract(num1, num2) {
 	return num1 - num2
 }
 
-function multiply (num1, num2) {
+function multiply(num1, num2) {
 	return num1 * num2
 }
 
-function divide (num1, num2) {
+function divide(num1, num2) {
 	return num1 / num2
 }
 
-function mod (num1, num2) {
+function mod(num1, num2) {
 	return (num1 % num2 + num2) % num2
 }
 
-function operate (calculation, operator)
-{
+function operate(calculation, operator) {
 	// Disallowing clicking of enter without any input
-	if (calculation.length === 0 || currentOperator === null)
-	{
+	if (calculation.length === 0 || currentOperator === null) {
 		return;
 	}
 
@@ -142,12 +124,10 @@ function operate (calculation, operator)
 	let parts = calculation.split(operator)
 
 	// Error check for if only one number has been input
-	if (parts[1] == '')
-	{
+	if (parts[1] == '') {
 		return;
 	}
-	else if (parts.length < 3 && parts[0] == '' && operator == '-')
-	{
+	else if (parts.length < 3 && parts[0] == '' && operator == '-') {
 		return;
 	}
 
@@ -156,21 +136,18 @@ function operate (calculation, operator)
 
 	// If length of array is > 2, two negative numbers are in calculation.
 
-	if (parts.length > 2)
-	{
+	if (parts.length > 2) {
 		// Flip the negativity.
 		num1 = `-${parts[1]}`
 		num1 = parseFloat(num1)
 		num2 = parseFloat(parts[2])
 	}
-	else
-	{
-	num1 = parseFloat(parts[0])
-	num2 = parseFloat(parts[1])
+	else {
+		num1 = parseFloat(parts[0])
+		num2 = parseFloat(parts[1])
 	}
 
-	switch (operator)
-	{
+	switch (operator) {
 		case '+':
 			result = add(num1, num2)
 			break
@@ -200,41 +177,32 @@ function operate (calculation, operator)
 
 // ------------------- Functions for appending numbers and operators to the display. -------------------
 
-function appendNumber (number)
-{
-	if (isValidInput(number))
-	{
+function appendNumber(number) {
+	if (isValidInput(number)) {
 		workingCalculation += number
 		updateDisplay()
 	}
 }
 
-function appendOperator (operator)
-{
-	if (isValidInput(operator))
-	{
+function appendOperator(operator) {
+	if (isValidInput(operator)) {
 		let operateCounter = 0
 
-		if (workingCalculation[0] == '-')
-		{
+		if (workingCalculation[0] == '-') {
 			operateCounter = 1
 		}
 
-		for (let i = 0; i < workingCalculation.length; i++)
-		{
-			if (legalOperators.includes(workingCalculation[i]))
-			{
-				operateCounter ++
+		for (let i = 0; i < workingCalculation.length; i++) {
+			if (legalOperators.includes(workingCalculation[i])) {
+				operateCounter++
 			}
 		}
 
-		if (operateCounter == 1)
-		{
+		if (operateCounter == 1) {
 			operate(workingCalculation, currentOperator)
 			currentOperator = operator
 		}
-		else if (operateCounter > 2)
-		{
+		else if (operateCounter > 2) {
 			operate(workingCalculation, currentOperator)
 			currentOperator = operator
 		}
@@ -244,10 +212,8 @@ function appendOperator (operator)
 		currentOperator = operator
 		updateDisplay()
 	}
-	else
-	{
-		if (workingCalculation.length > 1)
-		{
+	else {
+		if (workingCalculation.length > 1) {
 			workingCalculation = workingCalculation.slice(0, workingCalculation.length - 1)
 			workingCalculation += operator
 			currentOperator = operator
@@ -256,10 +222,8 @@ function appendOperator (operator)
 	}
 }
 
-function appendPeriod (calculation)
-{
-	if (periodUsed === false)
-	{
+function appendPeriod(calculation) {
+	if (periodUsed === false) {
 		workingCalculation += '.'
 		periodUsed = true
 		updateDisplay()
@@ -275,22 +239,18 @@ function appendPeriod (calculation)
 
 // ------------------- Keyboard Event Listeners -------------------
 
-function keyboardEventHandler (e)
-{
+function keyboardEventHandler(e) {
 	const key = e.key
 
-	if (legalKeys.includes(key))
-	{
-		
-		if (!isNaN(key))
-		{
+	if (legalKeys.includes(key)) {
 
-			numberInputs.forEach (function (button) {
-				if (button.textContent == key)
-				{
+		if (!isNaN(key)) {
+
+			numberInputs.forEach(function (button) {
+				if (button.textContent == key) {
 					button.classList.remove('animate-number-button-class')
 
-					setTimeout (function () {
+					setTimeout(function () {
 						button.classList.add('animate-number-button-class')
 					}, 5)
 				}
@@ -298,17 +258,15 @@ function keyboardEventHandler (e)
 
 			appendNumber(key)
 		}
-		else
-		{
+		else {
 			let oper = null
-			switch (key)
-			{
+			switch (key) {
 				case '+':
 					oper = document.getElementById('plus-but')
 
 					oper.classList.remove('animate-operator-button-class')
 
-					setTimeout (function () {
+					setTimeout(function () {
 						oper.classList.add('animate-operator-button-class')
 					}, 5)
 					appendOperator('+')
@@ -319,7 +277,7 @@ function keyboardEventHandler (e)
 
 					oper.classList.remove('animate-operator-button-class')
 
-					setTimeout (function () {
+					setTimeout(function () {
 						oper.classList.add('animate-operator-button-class')
 					}, 5)
 					appendOperator('-')
@@ -330,7 +288,7 @@ function keyboardEventHandler (e)
 
 					oper.classList.remove('animate-operator-button-class')
 
-					setTimeout (function () {
+					setTimeout(function () {
 						oper.classList.add('animate-operator-button-class')
 					}, 5)
 					appendOperator('*')
@@ -341,7 +299,7 @@ function keyboardEventHandler (e)
 
 					oper.classList.remove('animate-operator-button-class')
 
-					setTimeout (function () {
+					setTimeout(function () {
 						oper.classList.add('animate-operator-button-class')
 					}, 5)
 					appendOperator('/')
@@ -352,7 +310,7 @@ function keyboardEventHandler (e)
 
 					oper.classList.remove('animate-operator-button-class')
 
-					setTimeout (function () {
+					setTimeout(function () {
 						oper.classList.add('animate-operator-button-class')
 					}, 5)
 					appendOperator('%')
@@ -361,7 +319,7 @@ function keyboardEventHandler (e)
 				case '.':
 					periodKey.classList.remove('animate-number-button-class')
 
-					setTimeout (function () {
+					setTimeout(function () {
 						periodKey.classList.add('animate-number-button-class')
 					}, 5)
 					appendPeriod(workingCalculation)
@@ -370,7 +328,7 @@ function keyboardEventHandler (e)
 				case 'Enter':
 					enterKey.classList.remove('animate-enter-button-class')
 
-					setTimeout (function () {
+					setTimeout(function () {
 						enterKey.classList.add('animate-enter-button-class')
 					}, 5)
 					operate(workingCalculation, currentOperator)
@@ -379,7 +337,7 @@ function keyboardEventHandler (e)
 				case 'Backspace':
 					backspaceKey.classList.remove('animate-clear-button-class')
 
-					setTimeout (function () {
+					setTimeout(function () {
 						backspaceKey.classList.add('animate-clear-button-class')
 					}, 5)
 					backspace(workingCalculation)
@@ -388,7 +346,7 @@ function keyboardEventHandler (e)
 				case 'Escape':
 					clearAllKey.classList.remove('animate-clear-button-class')
 
-					setTimeout (function () {
+					setTimeout(function () {
 						clearAllKey.classList.add('animate-clear-button-class')
 					}, 5)
 					clearAll()
@@ -399,11 +357,11 @@ function keyboardEventHandler (e)
 
 // ------------------- Mouse Event listeners -------------------
 
-numberInputs.forEach (function (button) {
+numberInputs.forEach(function (button) {
 	button.addEventListener('click', () => appendNumber(button.textContent))
 })
 
-operatorInputs.forEach (function (button) {
+operatorInputs.forEach(function (button) {
 	button.addEventListener('click', () => appendOperator(button.textContent))
 })
 
@@ -415,7 +373,7 @@ clearAllKey.addEventListener('click', clearAll)
 
 enterKey.addEventListener('click', () => operate(workingCalculation, currentOperator))
 
-numberInputs.forEach (function (button) {
+numberInputs.forEach(function (button) {
 	button.addEventListener('click', () => {
 		button.classList.remove('animate-number-button-class')
 
@@ -433,7 +391,7 @@ periodKey.addEventListener('click', () => {
 	}, 5)
 })
 
-operatorInputs.forEach (function (button) {
+operatorInputs.forEach(function (button) {
 	button.addEventListener('click', () => {
 		button.classList.remove('animate-operator-button-class')
 
